@@ -6,11 +6,12 @@ namespace LynxStd
 {
     public class StatesManager : MonoBehaviour
     {
+        public ResourcesManager resourcesManager;
         public ControllerStats stats;
         public ControllerStates states;
 
         public InputVariables inp;
-
+        public WeaponManager weaponManager;
 
         [System.Serializable]
         public class InputVariables
@@ -62,6 +63,8 @@ namespace LynxStd
 
         public void Init()
         {
+            resourcesManager.Init();
+
             mTransform = this.transform;
             SetupAnimator();
 
@@ -79,6 +82,8 @@ namespace LynxStd
 
             a_hook = activeModel.AddComponent<AnimatorHook>();
             a_hook.Init(this);
+
+            Init_WeaponManager();
         }
 
         void SetupAnimator()
@@ -235,6 +240,40 @@ namespace LynxStd
 
             anim.SetFloat(StaticStrings.animParamHorizontal, h, 0.2f, delta);
             anim.SetFloat(StaticStrings.animParamVertical, v, 0.2f, delta);
+        }
+
+        public void Init_WeaponManager()
+        {
+            CreateRuntimeWeapon(weaponManager.mainWeaponID, ref weaponManager.m_Weapon);
+            EquipRuntimeWeapon(weaponManager.m_Weapon);
+        }
+
+        public void CreateRuntimeWeapon(string id, ref RuntimeWeapon r_w_m)
+        {
+            Weapon w = resourcesManager.GetWeapon(id);
+            RuntimeWeapon rw = resourcesManager.runtime.WeaponToRuntimeWeapon(w);
+
+            GameObject go = Instantiate(w.modelPrefab);
+            rw.m_instance = go;
+            rw.w_actual = w;
+            rw.w_hook = go.GetComponent<WeaponHook>();
+            go.SetActive(false);
+
+            Transform p = anim.GetBoneTransform(HumanBodyBones.RightHand);
+            go.transform.SetParent(p);
+            go.transform.localPosition = Vector3.zero;
+            go.transform.localEulerAngles = Vector3.zero;
+            go.transform.localScale = Vector3.one;
+
+            r_w_m = rw;
+        }
+
+        public void EquipRuntimeWeapon(RuntimeWeapon rw)
+        {
+            rw.m_instance.SetActive(true);
+            a_hook.EquipWeapon(rw);
+
+            anim.SetFloat(StaticStrings.animParamWeaponType, rw.w_actual.WeaponType);
         }
 
         bool OnGround()

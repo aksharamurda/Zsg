@@ -14,5 +14,6 @@ namespace LynxStd
         public static string animParamAiming = "aiming";
         public static string animParamSprint = "sprint";
         public static string animParamCrouch = "crouch";
+        public static string animParamWeaponType = "weaponIdle";
     }
 }

@@ -21,8 +21,11 @@ namespace LynxStd
 
         Vector3 lookDir;
 
+        public bool onIdleDiableOh;
         public bool disable_o_h;
         public bool disable_m_h;
+
+        RuntimeWeapon curWeapon;
 
         public void Init(StatesManager st)
         {
@@ -41,6 +44,19 @@ namespace LynxStd
             states.inp.aimPosition = states.transform.position + transform.forward * 15;
             states.inp.aimPosition.y += 1.4f;
 
+        }
+
+        public void EquipWeapon(RuntimeWeapon rw)
+        {
+            Weapon w = rw.w_actual;
+            lh_target = rw.w_hook.leftHandIK;
+
+            rh_target.localPosition = w.m_h_ik.pos;
+            rh_target.localEulerAngles = w.m_h_ik.rot;
+
+            onIdleDiableOh = rw.w_actual.onIdleDiableOh;
+
+            curWeapon = rw;
         }
 
         private void OnAnimatorMove()
@@ -114,6 +130,12 @@ namespace LynxStd
             if (angle > 45)
                 t_m_weight = 0;
 
+            if(!states.states.isAiming)
+            {
+                if (onIdleDiableOh)
+                    o_h_weight = 0;
+            }
+
             l_weight = Mathf.Lerp(l_weight, t_l_weight, states.delta * 3);
             m_h_weight = Mathf.Lerp(m_h_weight, t_m_weight, states.delta * 9);
         }
@@ -174,8 +196,8 @@ namespace LynxStd
                     recoilIsInit = false;
                 }
 
-                offsetPosition = Vector3.forward;
-                offsetRotation = Vector3.right * 90;
+                offsetPosition = Vector3.forward * curWeapon.w_actual.recoilZ.Evaluate(recoilT);
+                offsetRotation = Vector3.right * 90 * curWeapon.w_actual.recoilY.Evaluate(recoilT);
 
                 rh_target.localPosition = basePosition + offsetPosition;
                 rh_target.localEulerAngles = baseRotation + offsetRotation;

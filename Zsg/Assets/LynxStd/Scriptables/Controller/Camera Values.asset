@@ -18,10 +18,10 @@ MonoBehaviour:
   x_rotate_speed: 8
   minAngle: -35
   maxAngle: 35
-  normalX: 0.45
-  normalY: 1.59
-  normalZ: -0.95
-  aimZ: -0.71
-  aimX: 0.45
+  normalX: 0.51
+  normalY: 1.45
+  normalZ: -1.26
+  aimZ: -0.94
+  aimX: 0.51
   crouchY: 0
   adaptSpeed: 9
