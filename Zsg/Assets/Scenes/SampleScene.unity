@@ -155,6 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   states: {fileID: 310499648}
   camHandler: {fileID: 1287575945}
+  debugAim: 1
 --- !u!1 &51857594
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,8 +393,10 @@ MonoBehaviour:
     moveAmount: 0
     moveDirection: {x: 0, y: 0, z: 0}
     aimPosition: {x: 0, y: 0, z: 0}
+    rotateDirection: {x: 0, y: 0, z: 0}
   anim: {fileID: 360391927}
   activeModel: {fileID: 360391925}
+  a_hook: {fileID: 0}
   rigid: {fileID: 0}
   controllerCollider: {fileID: 0}
   ignoreLayer:

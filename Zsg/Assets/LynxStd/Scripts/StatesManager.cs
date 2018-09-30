@@ -36,6 +36,8 @@ namespace LynxStd
 
         public Animator anim;
         public GameObject activeModel;
+        [HideInInspector]
+        public AnimatorHook a_hook;
 
         [HideInInspector]
         public Rigidbody rigid;
@@ -49,6 +51,9 @@ namespace LynxStd
         public LayerMask ignoreLayer;
         [HideInInspector]
         public LayerMask ignoreForGround;
+
+        //[HideInInspector]
+        //public Transform referencesParent;
 
         [HideInInspector]
         public Transform mTransform;
@@ -71,6 +76,9 @@ namespace LynxStd
 
             ignoreLayer = ~(1 << 9);
             ignoreForGround = ~(1 << 9 | 1 << 10);
+
+            a_hook = activeModel.AddComponent<AnimatorHook>();
+            a_hook.Init(this);
         }
 
         void SetupAnimator()

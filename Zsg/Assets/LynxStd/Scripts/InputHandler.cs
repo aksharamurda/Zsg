@@ -24,6 +24,8 @@ namespace LynxStd
         public StatesManager states;
         public CameraHandler camHandler;
 
+        public bool debugAim;
+
         private void Start()
         {
             InitInGame();
@@ -80,7 +82,11 @@ namespace LynxStd
             delta = Time.deltaTime;
 
             GetInput_Update();
+            AimPosition();
             InGame_UpdateStates_Update();
+
+            if (debugAim)
+                states.states.isAiming = true;
 
             states.Tick(delta);
         }
@@ -93,6 +99,18 @@ namespace LynxStd
         void InGame_UpdateStates_Update()
         {
             states.states.isAiming = aimInput;
+        }
+
+        void AimPosition()
+        {
+            Ray ray = new Ray(camHandler.camTrans.position, camHandler.camTrans.forward);
+            states.inp.aimPosition = ray.GetPoint(30);
+
+            RaycastHit hit;
+            if(Physics.Raycast(ray, out hit, 100, states.ignoreLayer))
+            {
+                states.inp.aimPosition = hit.point;
+            }
         }
     }
 
