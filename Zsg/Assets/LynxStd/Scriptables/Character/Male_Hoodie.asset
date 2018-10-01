@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4325c3e5f39168a4fb9c7a4314c9146f, type: 3}
+  m_Name: Male_Hoodie
+  m_EditorClassIdentifier: 
+  id: Hoodie
+  m_Mesh: {fileID: 4300006, guid: 897b34267f422c1499700402763d096e, type: 3}
+  f_Mesh: {fileID: 0}
+  material: {fileID: 2100000, guid: 49cd23886e240984580f9284f06b57c8, type: 2}

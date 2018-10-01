@@ -12,6 +12,7 @@ namespace LynxStd
 
         public InputVariables inp;
         public WeaponManager weaponManager;
+        public Character character;
 
         [System.Serializable]
         public class InputVariables
@@ -84,6 +85,10 @@ namespace LynxStd
             a_hook.Init(this);
 
             Init_WeaponManager();
+
+            character = GetComponent<Character>();
+            character.LoadCharacter(resourcesManager);
+
         }
 
         void SetupAnimator()
@@ -198,6 +203,7 @@ namespace LynxStd
                 case CharState.normal:
                     states.onGround = OnGround();
                     HandleAnimationAll();
+                    a_hook.Tick();
                     break;
                 case CharState.onAir:
                     states.onGround = OnGround();
@@ -274,6 +280,27 @@ namespace LynxStd
             a_hook.EquipWeapon(rw);
 
             anim.SetFloat(StaticStrings.animParamWeaponType, rw.w_actual.WeaponType);
+            weaponManager.SetCurrent(rw);
+
+        }
+
+        public bool ShootWeapon(float t)
+        {
+            bool retVal = false;
+
+            RuntimeWeapon c = weaponManager.GetCurrent();
+
+            if(c.curAmmo > 0)
+            {
+                if (t - c.lastFired > c.w_actual.fireRate)
+                {
+                    retVal = true;
+                    c.ShootWeapon();
+                    a_hook.RecoilAnim();
+                }
+            }
+
+            return retVal;
         }
 
         bool OnGround()

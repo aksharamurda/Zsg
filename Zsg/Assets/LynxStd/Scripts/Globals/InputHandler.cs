@@ -23,6 +23,7 @@ namespace LynxStd
 
         public StatesManager states;
         public CameraHandler camHandler;
+        public PlayerReferences playerReferences;
 
         public bool debugAim;
 
@@ -50,6 +51,12 @@ namespace LynxStd
             states.FixedTick(delta);
 
             camHandler.FixedTick(delta);
+
+
+            if (states.rigid.velocity.sqrMagnitude > 0)
+                playerReferences.targetSpread.value = 40;
+            else
+                playerReferences.targetSpread.value = 20;
         }
 
         void GetInput_FixedUpdate()
@@ -72,6 +79,7 @@ namespace LynxStd
             states.inp.moveDirection = moveDir;
 
             states.inp.rotateDirection = camHandler.mTranform.forward;
+
         }
 
         private void Update()
@@ -94,11 +102,22 @@ namespace LynxStd
         void GetInput_Update()
         {
             aimInput = Input.GetMouseButton(1);
+            shootInput = Input.GetMouseButton(0);
         }
 
         void InGame_UpdateStates_Update()
         {
             states.states.isAiming = aimInput;
+
+            if (shootInput)
+            {
+                states.states.isAiming = true;
+                bool shootActual = states.ShootWeapon(Time.realtimeSinceStartup);
+                if (shootActual)
+                {
+                    //Update UI (Ammo, Mag, etc)
+                }
+            }
         }
 
         void AimPosition()
