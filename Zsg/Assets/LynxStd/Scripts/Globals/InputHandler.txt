@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -115,11 +115,10 @@ namespace LynxStd
                 {
                     aimInput = false;
                     shootInput = false;
-
                 }
             }
 
-            //states.states.isAiming = aimInput;
+            states.states.isAiming = aimInput;
             if (shootInput)
             {
                 states.states.isAiming = true;

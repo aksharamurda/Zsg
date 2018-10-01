@@ -136,7 +136,7 @@ namespace LynxStd
             }
 
             l_weight = Mathf.Lerp(l_weight, t_l_weight, states.delta * 3);
-            m_h_weight = Mathf.Lerp(m_h_weight, t_m_weight, states.delta * 9);
+            m_h_weight = Mathf.Lerp(m_h_weight, t_m_weight, states.delta * 3);
         }
 
         private void OnAnimatorIK(int layerIndex)
@@ -189,7 +189,6 @@ namespace LynxStd
             if (recoilIsInit)
             {
                 recoilT += states.delta * 10; //3
-                Debug.Log(recoilT);
                 if (recoilT > 1)
                 {
                     recoilT = 1;

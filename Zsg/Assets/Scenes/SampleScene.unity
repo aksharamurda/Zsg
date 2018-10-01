@@ -1499,6 +1499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetSpread: {fileID: 11400000, guid: a22d7bd9ad5ba364e8b951fb8e9836eb, type: 2}
   maxSpread: 40
+  defaultSpread: 0
   spreadSpeed: 5
   parts:
   - trans: {fileID: 1491824797}

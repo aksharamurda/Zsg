@@ -210,11 +210,6 @@ namespace LynxStd
                     if (states.isInteracting)
                     {
                         reloadTime += delta;
-
-                        if(reloadTime > 2.9f)
-                        {
-                            states.isAiming = true;
-                        }
                         if(reloadTime > 3)
                         {
                             states.isInteracting = false;
@@ -341,7 +336,6 @@ namespace LynxStd
 
                 retVal = true;
                 anim.CrossFade("Rifle Reload", 0.2f);
-                states.isAiming = false;
                 states.isInteracting = true;
             }
 
