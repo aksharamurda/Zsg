@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -61,6 +61,8 @@ namespace LynxStd
         public Transform mTransform;
         public CharState curState;
         public float delta;
+
+        float reloadTime;
 
         public void Init()
         {
@@ -204,6 +206,17 @@ namespace LynxStd
                     states.onGround = OnGround();
                     HandleAnimationAll();
                     a_hook.Tick();
+
+                    if (states.isInteracting)
+                    {
+                        reloadTime += delta;
+                        if(reloadTime > 3)
+                        {
+                            states.isInteracting = false;
+                            reloadTime = 0;
+                        }
+                    }
+
                     break;
                 case CharState.onAir:
                     states.onGround = OnGround();
@@ -298,6 +311,32 @@ namespace LynxStd
                     c.ShootWeapon();
                     a_hook.RecoilAnim();
                 }
+            }
+
+            return retVal;
+        }
+
+        public bool Reload()
+        {
+            bool retVal = false;
+            RuntimeWeapon c = weaponManager.GetCurrent();
+
+            if(c.curAmmo < c.w_actual.magazineAmmo)
+            {
+                if(c.w_actual.magazineAmmo <= c.curCarryingAmmo)
+                {
+                    c.curAmmo = c.w_actual.magazineAmmo;
+                    c.curCarryingAmmo -= c.curAmmo;
+                }
+                else
+                {
+                    c.curAmmo = c.curCarryingAmmo;
+                    c.curCarryingAmmo = 0;
+                }
+
+                retVal = true;
+                anim.CrossFade("Rifle Reload", 0.2f);
+                states.isInteracting = true;
             }
 
             return retVal;

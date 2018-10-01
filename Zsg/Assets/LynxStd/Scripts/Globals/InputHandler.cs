@@ -103,12 +103,22 @@ namespace LynxStd
         {
             aimInput = Input.GetMouseButton(1);
             shootInput = Input.GetMouseButton(0);
+            reloadInput = Input.GetButtonDown(StaticStrings.inputReload);
         }
 
         void InGame_UpdateStates_Update()
         {
-            states.states.isAiming = aimInput;
+            if(reloadInput)
+            {
+                bool isReloading = states.Reload();
+                if (isReloading)
+                {
+                    aimInput = false;
+                    shootInput = false;
+                }
+            }
 
+            states.states.isAiming = aimInput;
             if (shootInput)
             {
                 states.states.isAiming = true;

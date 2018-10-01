@@ -16,7 +16,7 @@ MonoBehaviour:
   modelPrefab: {fileID: 1013559758129180, guid: 528f2cb65efaa144da6a2552ef04237b,
     type: 2}
   fireRate: 0.1
-  magazineAmmo: 50000
+  magazineAmmo: 30
   maxAmmo: 160
   onIdleDiableOh: 0
   WeaponType: 1
