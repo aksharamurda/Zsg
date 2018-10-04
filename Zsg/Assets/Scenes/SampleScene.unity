@@ -708,7 +708,7 @@ MonoBehaviour:
     aimPosition: {x: 0, y: 0, z: 0}
     rotateDirection: {x: 0, y: 0, z: 0}
   weaponManager:
-    mainWeaponID: M4
+    mainWeaponID: Revolver
     secondWeaponID: M4
     m_Weapon:
       curAmmo: 0
