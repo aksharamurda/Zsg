@@ -26,6 +26,7 @@ namespace LynxStd
         public PlayerReferences playerReferences;
 
         public bool debugAim;
+        public bool alwaysAim;
 
         private void Start()
         {
@@ -37,6 +38,9 @@ namespace LynxStd
             states.Init();
             camHandler.Init(this);
             isInit = true;
+
+            if(alwaysAim)
+                states.states.isAiming = true;
         }
 
         private void FixedUpdate()
@@ -119,7 +123,9 @@ namespace LynxStd
                 }
             }
 
-            //states.states.isAiming = aimInput;
+            if(!alwaysAim)
+                states.states.isAiming = aimInput;
+
             if (shootInput)
             {
                 states.states.isAiming = true;

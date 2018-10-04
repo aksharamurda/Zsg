@@ -206,50 +206,6 @@ Transform:
   m_Father: {fileID: 1205428371}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &36568127
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 36568128}
-  - component: {fileID: 36568129}
-  m_Layer: 0
-  m_Name: InputHandler
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &36568128
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 36568127}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &36568129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 36568127}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a145c6ca45322994299db634ae8d13a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  states: {fileID: 310499648}
-  camHandler: {fileID: 1287575945}
-  playerReferences: {fileID: 11400000, guid: 51bb804472131c146a597cae85e4f0c8, type: 2}
-  debugAim: 0
 --- !u!1 &51857594
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,6 +588,7 @@ GameObject:
   - component: {fileID: 310499646}
   - component: {fileID: 310499648}
   - component: {fileID: 310499649}
+  - component: {fileID: 310499650}
   m_Layer: 9
   m_Name: Player Controller
   m_TagString: Untagged
@@ -753,6 +710,22 @@ MonoBehaviour:
   outfitId: Jacket
   isFemale: 0
   bodyRenderer: {fileID: 974924798}
+--- !u!114 &310499650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 310499644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a145c6ca45322994299db634ae8d13a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  states: {fileID: 310499648}
+  camHandler: {fileID: 1287575945}
+  playerReferences: {fileID: 11400000, guid: 51bb804472131c146a597cae85e4f0c8, type: 2}
+  debugAim: 0
+  alwaysAim: 1
 --- !u!1 &349848219
 GameObject:
   m_ObjectHideFlags: 0
@@ -1873,7 +1846,7 @@ Transform:
   - {fileID: 30178322}
   - {fileID: 572311304}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1205428372
 MonoBehaviour:

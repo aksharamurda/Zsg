@@ -15,7 +15,7 @@ MonoBehaviour:
   m_h_ik: {fileID: 11400000, guid: 3e21ec1d4e1ce834997c214b7aca100c, type: 2}
   modelPrefab: {fileID: 1907572712805114, guid: c48b4f43ef9be4949a57fbef220c2b5b,
     type: 2}
-  fireRate: 0.1
+  fireRate: 2
   magazineAmmo: 30
   maxAmmo: 160
   onIdleDiableOh: 1
