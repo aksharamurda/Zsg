@@ -62,7 +62,8 @@ namespace LynxStd
         public CharState curState;
         public float delta;
 
-        float reloadTime;
+        float interactTime;
+        bool switchingWeapon;
 
         public void Init()
         {
@@ -209,17 +210,30 @@ namespace LynxStd
 
                     if (states.isInteracting)
                     {
-                        reloadTime += delta;
+                        interactTime += delta;
+                        if (switchingWeapon)
+                        {
+                            if (interactTime > 1f)
+                            {
+                                switchingWeapon = false;
+                                states.isInteracting = false;
+                                states.isAiming = true;
+                                interactTime = 0;
+                            }
+                        }
+                        else
+                        {
+                            if (interactTime > 2.9f)
+                            {
+                                states.isAiming = true;
+                            }
+                            if (interactTime > 3)
+                            {
+                                states.isInteracting = false;
+                                interactTime = 0;
+                            }
+                        }
 
-                        if(reloadTime > 2.9f)
-                        {
-                            states.isAiming = true;
-                        }
-                        if(reloadTime > 3)
-                        {
-                            states.isInteracting = false;
-                            reloadTime = 0;
-                        }
                     }
 
                     break;
@@ -269,7 +283,9 @@ namespace LynxStd
         public void Init_WeaponManager()
         {
             CreateRuntimeWeapon(weaponManager.mainWeaponID, ref weaponManager.m_Weapon);
+            CreateRuntimeWeapon(weaponManager.secondWeaponID, ref weaponManager.s_Weapon);
             EquipRuntimeWeapon(weaponManager.m_Weapon);
+            weaponManager.isMain = true;
         }
 
         public void CreateRuntimeWeapon(string id, ref RuntimeWeapon r_w_m)
@@ -294,12 +310,26 @@ namespace LynxStd
 
         public void EquipRuntimeWeapon(RuntimeWeapon rw)
         {
+            if (weaponManager.GetCurrent() != null)
+            {
+                anim.CrossFade("Switch", 0.2f);
+                states.isAiming = false;
+                switchingWeapon = true;
+                states.isInteracting = true;
+                UnEquipWeapon(weaponManager.GetCurrent());
+            }
+
             rw.m_instance.SetActive(true);
             a_hook.EquipWeapon(rw);
 
             anim.SetFloat(StaticStrings.animParamWeaponType, rw.w_actual.WeaponType);
             weaponManager.SetCurrent(rw);
 
+        }
+
+        public void UnEquipWeapon(RuntimeWeapon rw)
+        {
+            rw.m_instance.SetActive(false);
         }
 
         public bool ShootWeapon(float t)
@@ -346,6 +376,15 @@ namespace LynxStd
             }
 
             return retVal;
+        }
+
+        public void SwitchWeapon()
+        {
+            if (states.isInteracting)
+                return;
+
+            weaponManager.isMain = !weaponManager.isMain;
+            EquipRuntimeWeapon((weaponManager.isMain) ? weaponManager.m_Weapon : weaponManager.s_Weapon);
         }
 
         bool OnGround()

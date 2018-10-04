@@ -7,6 +7,7 @@ namespace LynxStd
     [System.Serializable]
     public class WeaponManager
     {
+        public bool isMain;
         public string mainWeaponID;
         public string secondWeaponID;
 

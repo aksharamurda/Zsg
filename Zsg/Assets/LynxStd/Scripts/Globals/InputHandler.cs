@@ -108,6 +108,7 @@ namespace LynxStd
             aimInput = Input.GetMouseButton(1);
             shootInput = Input.GetMouseButton(0);
             reloadInput = Input.GetButtonDown(StaticStrings.inputReload);
+            switchInput = Input.GetButtonDown(StaticStrings.inputSwitch);
         }
 
         void InGame_UpdateStates_Update()
@@ -135,6 +136,10 @@ namespace LynxStd
                     //Update UI (Ammo, Mag, etc)
                 }
             }
+
+            if(switchInput)
+                states.SwitchWeapon();
+
         }
 
         void AimPosition()
